@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>にゃ Neko Room — 貓咪少女房間模擬</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <canvas id="stage"></canvas>
+  <div class="vignette"></div>
+
+  <aside class="panel left">
+    <div class="brand">
+      <span class="kanji">にゃ</span>
+      <div><div class="eyebrow">KAWAII GAMER ROOM</div><h1>NEKO</h1></div>
+    </div>
+    <div class="label">PRESETS</div>
+    <div class="moods" id="moods"></div>
+    <div class="note" id="moodNote"></div>
+  </aside>
+
+  <aside class="panel right">
+    <div class="row-head"><span>DAYLIGHT</span><b id="clock">21:30</b></div>
+    <div class="times" id="times"></div>
+    <input id="time" type="range" min="0" max="24" step="0.05" value="21.5" />
+    <div class="legend"><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></div>
+    <div class="row-head sm"><span>燈光</span><b id="lampState">—</b></div>
+  </aside>
+
+  <nav class="cams" id="cams"></nav>
+
+  <section class="dock">
+    <div class="dock-top"><div class="tabs" id="tabs"></div></div>
+    <div class="swatches" id="swatches"></div>
+  </section>
+
+  <nav class="tools" id="tools"><button id="t-undo" title="復原" aria-label="復原"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button><button id="t-redo" title="重做" aria-label="重做"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button><button id="t-shot" title="儲存圖片" aria-label="儲存圖片"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></button><button id="t-link" title="複製分享連結" aria-label="複製分享連結"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></button><button id="t-eye" title="隱藏介面" aria-label="隱藏介面"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button><button id="t-rec" title="錄製環繞影片" aria-label="錄製環繞影片"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4z"/></svg></button><button id="t-reset" title="重設佈置" aria-label="重設佈置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button><button id="t-help" title="操作說明" aria-label="操作說明"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></button></nav>
+  <div class="help" id="help"><h3>操作說明</h3><div class="hrow"><span class="cap">拖曳家具</span>移動</div><div class="hrow"><span class="cap">R／雙擊</span>旋轉家具</div><div class="hrow"><span class="cap">拖曳色票</span>到牆面、地板、家具或霓虹燈換色</div><div class="hrow"><span class="cap">左鍵拖曳</span>旋轉視角</div><div class="hrow"><span class="cap">右鍵拖曳</span>平移</div><div class="hrow"><span class="cap">滾輪</span>縮放</div></div>
+  <div class="toast" id="toast"></div>
+  <div class="tip" id="tip"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
